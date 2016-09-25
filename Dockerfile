@@ -2,7 +2,7 @@
 # sure you lock down to a specific version, not to `latest`!
 # See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
 # a list of version numbers.
-FROM armv7/armhf-baseimage:0.9.17
+FROM phusion/baseimage:0.9.18
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]

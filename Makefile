@@ -1,5 +1,5 @@
 OWNER = sshow
-NAME = vpn-pptp-arm
+NAME = vpn-pptp
 IMAGE = $(OWNER)/$(NAME)
 
 VERSION = 0.1

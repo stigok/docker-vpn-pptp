@@ -13,6 +13,7 @@ clean:
 	docker rm -f $(NAME)-test
 
 testrun:
+	docker volume create --name pptpd-logs
 	docker run -d \
 		--privileged \
 		--net=host \
@@ -21,8 +22,7 @@ testrun:
 		-v $(PWD)/etc/pptpd.conf:/etc/pptpd.conf \
 		-v $(PWD)/etc/ppp/pptpd-options:/etc/ppp/pptpd-options \
 		-v $(PWD)/chap-secrets:/etc/ppp/chap-secrets \
-		--tmpfs /var/log:rw,noexec,nosuid \
-		-v $(PWD)/wtmp.log:/var/log/wtmp \
+		-v pptpd-logs:/var/log \
 		--restart=unless-stopped \
 		--env TZ=Europe/Oslo \
 		$(IMAGE):$(VERSION)

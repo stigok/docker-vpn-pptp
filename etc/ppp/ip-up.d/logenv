@@ -1,0 +1,8 @@
+#!/bin/bash
+# Log all environment and arguments for ip-up.d events
+ENV_VARS="$(printenv)"
+POS_VARS="$@"
+LOG_DB="/var/log/pppd-ipup-debug.log"
+
+echo -e "Environment:\n$ENV_VARS\n\nPositional vars:\n$POS_VARS" >> $LOG_DB
+echo "-----------------" >> $LOG_DB

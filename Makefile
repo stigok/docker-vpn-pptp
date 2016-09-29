@@ -19,9 +19,6 @@ testrun:
 		--net=host \
 		--name="$(NAME)-test" \
 		-p 1723:1723 \
-		-v $(PWD)/etc/pptpd.conf:/etc/pptpd.conf \
-		-v $(PWD)/etc/ppp/pptpd-options:/etc/ppp/pptpd-options \
-		-v $(PWD)/chap-secrets:/etc/ppp/chap-secrets \
 		-v pptpd-logs:/var/log \
 		--restart=unless-stopped \
 		--env TZ=Europe/Oslo \

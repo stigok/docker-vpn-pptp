@@ -16,7 +16,8 @@ RUN apt-get update && apt-get install -y pptpd iptables
 RUN mkdir -p /etc/service/pptpd
 ADD pptpd.sh /etc/service/pptpd/run
 
-ADD ipforward.conf /etc/sysctl.d/30-ipforward.conf
+# Enable IPv4 forwarding
+RUN echo "net.ipv4.ip_forward=1" > /etc/sysctl.d/30-ipforward.conf
 
 # Startup scripts
 RUN mkdir -p /etc/my_init.d

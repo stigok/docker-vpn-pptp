@@ -7,12 +7,11 @@ FROM phusion/baseimage:0.9.18
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
-# ...put your own build instructions here...
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold"
 RUN apt-get update && apt-get install -y pptpd iptables
 
-# Setup service
+# Setup services
 RUN mkdir -p /etc/service/pptpd
 ADD etc/service/pptpd/run /etc/service/pptpd/run
 RUN chmod +x etc/service/pptpd/run

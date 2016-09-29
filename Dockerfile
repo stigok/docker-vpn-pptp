@@ -14,17 +14,16 @@ RUN apt-get update && apt-get install -y pptpd iptables
 
 # Setup service
 RUN mkdir -p /etc/service/pptpd
-ADD pptpd.sh /etc/service/pptpd/run
+ADD etc/service/pptpd/run /etc/service/pptpd/run
+RUN chmod +x etc/service/pptpd/run
 
 # Enable IPv4 forwarding
 RUN echo "net.ipv4.ip_forward=1" > /etc/sysctl.d/30-ipforward.conf
 
 # Startup scripts
 RUN mkdir -p /etc/my_init.d
-
-ADD firewall-rules.sh /etc/my_init.d/firewall-rules.sh
-ADD init.sh /etc/my_init.d/loginit.sh
-
+ADD etc/my_init.d/iptables.sh /etc/my_init.d/iptables.sh
+ADD etc/my_init.d/logfile-init.sh /etc/my_init.d/logfile-init.sh
 RUN chmod +x /etc/my_init.d/*
 
 # Clean up APT when done.

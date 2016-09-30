@@ -1,0 +1,40 @@
+#!/bin/bash
+# Adds a user to the PPTP chap-secrets file
+
+DATABASE="/mnt/pptpd/chap-secrets"
+USERNAME_REGEX="^[a-zA-Z0-9]{4,42}$"
+PASSWORD_REGEX="^[[a-zA-Z0-9]{6,42}$"
+
+username=$1
+password=$2
+
+# Validate database file existence
+if ! test -e "$DATABASE"; then
+  >&2 echo "Database file does not exist ($DATABASE)"
+  exit 1
+fi
+
+# Validate username
+if [[ ! $username =~ $USERNAME_REGEX ]]; then
+  echo "Invalid username"
+  exit 1
+fi
+
+# Make sure username is unique
+grep -v '#' $DATABASE | cut -d ' ' -f1 | grep -e ^${username}$ > /dev/null
+if [[ $? -eq 0 ]]; then
+  echo "Username already exists"
+  exit 1
+fi
+
+# Validate password
+if [[ ! $password =~ $PASSWORD_REGEX ]]; then
+  echo "Invalid password"
+  exit 1
+fi
+
+# Write to database
+echo "$username * $password *" >> $DATABASE
+
+# Exit successfully
+exit 0

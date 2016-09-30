@@ -30,6 +30,9 @@ RUN chmod +x /etc/my_init.d/*
 ADD etc/pptpd.conf /etc/pptpd.conf
 ADD etc/ppp/pptpd-options /etc/ppp/pptpd-options
 
+# Administration utilities
+ADD bin/add-pptp-user /usr/local/sbin/add-pptp-user
+RUN chmod +x /usr/local/sbin/*
+
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-

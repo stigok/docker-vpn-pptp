@@ -26,6 +26,10 @@ ADD etc/my_init.d/logfile-init.sh /etc/my_init.d/logfile-init.sh
 ADD etc/my_init.d/secrets-init.sh /etc/my_init.d/secrets-init.sh
 RUN chmod +x /etc/my_init.d/*
 
+# Connection debug logs
+ADD etc/ppp/ip-up.d/logenv /etc/ppp/ip-up.d/logenv
+RUN chmod +x /etc/ppp/ip-up.d/logenv
+
 # Configuration
 ADD etc/pptpd.conf /etc/pptpd.conf
 ADD etc/ppp/pptpd-options /etc/ppp/pptpd-options

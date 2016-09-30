@@ -15,9 +15,9 @@ if test -f $DATABASE; then
   fi
 fi
 
-echo "Setting proper permissions"
 chmod a-rwx $DATABASE
 chmod u+rw $DATABASE
 echo "Database $DATABASE touched and owned by root:root"
+ln -sf /mnt/pptpd/chap-secrets /etc/ppp/chap-secrets
 
 exit 0

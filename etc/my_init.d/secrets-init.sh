@@ -4,8 +4,18 @@
 set -e
 
 DATABASE="/mnt/pptpd/chap-secrets"
+
 touch $DATABASE
-chown root:root $DATABASE
+
+if test -f $DATABASE; then
+  if test ! -G $DATABASE || test ! -O $DATABASE; then
+    >&2 echo "Taking full ownership of $DATABASE file as it was not owned by root:root"
+    chown root:root $DATABASE
+    exit 0
+  fi
+fi
+
+echo "Setting proper permissions"
 chmod a-rwx $DATABASE
 chmod u+rw $DATABASE
 echo "Database $DATABASE touched and owned by root:root"

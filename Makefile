@@ -12,8 +12,26 @@ build:
 clean:
 	docker rm -f $(NAME)-test
 
-testrun:
-	docker volume create --name pptpd-logs
+clean-all:
+	make clean
+	docker volume rm pptpd-logs pptpd-users
+
+install:
+	make build
+	docker run -d \
+		--privileged \
+		--net=host \
+		--name="$(NAME)" \
+		-p 1723:1723 \
+		-v pptpd-logs:/var/log \
+		-v pptpd-users:/mnt/pptpd \
+		--restart=unless-stopped \
+		--env TZ=Europe/Oslo \
+		$(IMAGE):$(VERSION)
+
+debug:
+	make clean
+	make build
 	docker run -d \
 		--privileged \
 		--net=host \
@@ -24,4 +42,7 @@ testrun:
 		--restart=unless-stopped \
 		--env TZ=Europe/Oslo \
 		$(IMAGE):$(VERSION)
-
+	sleep 2
+	docker logs $(NAME)-test
+	make stepin
+	docker exec -it $(NAME)-test bash

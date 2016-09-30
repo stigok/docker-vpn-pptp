@@ -44,5 +44,4 @@ debug:
 		$(IMAGE):$(VERSION)
 	sleep 2
 	docker logs $(NAME)-test
-	make stepin
 	docker exec -it $(NAME)-test bash

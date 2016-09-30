@@ -20,6 +20,7 @@ testrun:
 		--name="$(NAME)-test" \
 		-p 1723:1723 \
 		-v pptpd-logs:/var/log \
+		-v pptpd-users:/mnt/pptpd \
 		--restart=unless-stopped \
 		--env TZ=Europe/Oslo \
 		$(IMAGE):$(VERSION)

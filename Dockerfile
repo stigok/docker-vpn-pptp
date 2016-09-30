@@ -23,12 +23,12 @@ RUN echo "net.ipv4.ip_forward=1" > /etc/sysctl.d/30-ipforward.conf
 RUN mkdir -p /etc/my_init.d
 ADD etc/my_init.d/iptables.sh /etc/my_init.d/iptables.sh
 ADD etc/my_init.d/logfile-init.sh /etc/my_init.d/logfile-init.sh
+ADD etc/my_init.d/secrets-init.sh /etc/my_init.d/secrets-init.sh
 RUN chmod +x /etc/my_init.d/*
 
 # Configuration
 ADD etc/pptpd.conf /etc/pptpd.conf
 ADD etc/ppp/pptpd-options /etc/ppp/pptpd-options
-ADD etc/ppp/chap-secrets /etc/ppp/chap-secrets
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
